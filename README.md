@@ -1,6 +1,6 @@
 # Common_Tongue
 
-Common Tongue is a mobile app, built using React Native, for both IOS & Android intended to speed-up EFL teacher workflows.
+Common Tongue is a mobile app, built using React Native, for both iOS & Android intended to speed-up EFL teacher workflows.
 
 ## Table of Contents
 - [About](#about)
