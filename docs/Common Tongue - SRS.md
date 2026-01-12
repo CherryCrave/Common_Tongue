@@ -83,3 +83,4 @@ The following requirements define how well the system has been developed. Placin
 -   The system **shall** utilise a RESTful API between the frontend and backend.
 -   The system **shall** interact with the LLM API for AI feedback generation.
 ## Use cases:
+![Use Case Diagram](/docs/Common%20Tongue%20Use%20Case%20Diagram.png)
