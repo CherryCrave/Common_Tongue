@@ -3,7 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Welcome to Common Tongue.</Text>
+      <Text style={styles.welcomeText}>Welcome to Common Tongue.</Text>
+      <Text style={styles.directToAccHub}>Account Hub</Text>
     </View>
   );
 }
@@ -16,9 +17,18 @@ const styles =  StyleSheet.create({
     justifyContent: 'center',
   },
 
-  text: {
+  welcomeText: {
     color: '#FF9494',
     fontSize: 20,
     fontWeight: 'bold',
+    fontFamily: 'Arial'  
+  },
+
+  directToAccHub: {
+    color: '#FF9494',
+    fontSize: 20,
+    padding: 10,
+    position: 'absolute',
+    bottom: 105
   }
 });
