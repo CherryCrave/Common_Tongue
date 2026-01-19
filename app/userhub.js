@@ -1,9 +1,15 @@
+import { Ionicons } from '@expo/vector-icons';
 import { Link } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function UserHub() {
     return (
         <View style={styles.container}>
+            <Link href="/(tabs)" asChild>
+                <Pressable style={styles.compassButton}>
+                    <Ionicons name="compass" size={32} color="#FF9494" />
+                </Pressable>
+            </Link>
             <Text style={styles.title}>User Hub</Text>
             <Link href="/userlogin" style={styles.login}>
                 <Text style={styles.login}> Login </Text>
@@ -21,6 +27,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#FFF5E4',
+    },
+    compassButton: {
+        position: 'absolute',
+        top: 40,
+        left: 20,
+        zIndex: 1,
     },
     title: {
         fontSize: 24,

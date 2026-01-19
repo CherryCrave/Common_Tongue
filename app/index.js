@@ -1,18 +1,14 @@
 import { Link } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
   return (
-    <>
-      <StatusBar style="dark" backgroundColor="#FFF5E4" />
-      <View style={styles.container}>
+    <View style={styles.container}>
         <Text style={styles.welcomeText}>Welcome to Common Tongue.</Text>
         <Link href="/userhub" style={styles.directToAccHub}>
           <Text style={styles.directToAccHub}>Account Hub</Text>
         </Link>
       </View>
-    </>
   );
 }
 
