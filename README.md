@@ -22,8 +22,9 @@ Common Tongue is currently being developed for a Minimum Viable Product state, t
 - Node.js
 - npm
 - Expo GO app (iOS/Android)
+- PostgreSQL (for backend)
 
-### Setup
+### Frontend Setup
 1. Clone the repository:
 	 ```sh
 	 git clone https://github.com/CherryCrave/common_tongue.git
@@ -38,16 +39,47 @@ Common Tongue is currently being developed for a Minimum Viable Product state, t
 	 npx expo start
 	 ```
 
+### Backend Setup
+1. Navigate to the backend directory:
+	 ```sh
+	 cd backend
+	 ```
+2. Install dependencies:
+	 ```sh
+	 npm install
+	 ```
+3. Create `.env` file (copy from `.env.example`):
+	 ```sh
+	 cp .env.example .env
+	 ```
+4. Update `.env` with your PostgreSQL credentials
+5. Run the server:
+	 ```sh
+	 npm start
+	 ```
+   For development with auto-reload:
+	 ```sh
+	 npm run dev
+	 ```
+   Server will run on `http://localhost:3000`
+
 ## Running the App
 
-- **iOS/Android:**
+- **Frontend (iOS/Android):**
 	- Download the Expo GO app from your mobile's respective application store (App Store/Google Play Store).
 	- Scan the QR code shown in your terminal or browser after running `npx expo start`.
 	- The app will open in Expo GO on your device.
 
+- **Backend:**
+	- From the root directory, run `cd backend && npm start` to start the Express server.
+
 ## Project Structure
 
 - `app/` — Main application screens and navigations.
+- `backend/` — Node.js/Express Backend with PostgreSQL database.
+- `config/` — Database connection configuration.
+- `routes/` — API endpoints.
+- `models/` — Database queries and models.
 - `assets/` — Images and other assets.
 - `docs/` — Documentation (Primarily Software Engineering Related).
 - `app.json` — Expo configuration.
