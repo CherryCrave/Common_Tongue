@@ -5,7 +5,31 @@ const pool = require('../config/database');
 const router = express.Router();
 
 // User registration functionality
+router.post('/register', async (req, res) => {
+    try{
+        const {email, username, password} = req.body;
 
+        // Does the user already exist?
+        const existingUserQuery = await pool.query(
+            'SELECT * FROM users WHERE email = $1 OR username = $2', [email, username]
+        );
+
+        if (existingUserQuery.rows.length > 0) {
+            return res.status(400).json({error: 'A user with that email or username already exists. Please try again with different details or login.'});}
+
+        // Encrypting the password for security
+        const passwordHash = await bcrypt.hash(password, 8);
+
+        // Adding the user to the database with the password, hashed 2^8 times so it cannot be reversed.
+        const insertNewUserQuery = await pool.query(
+            'INSERT INTO users (email, username, hashed_password) VALUES ($1, $2, $3) RETURNING *', [email, username, passwordHash]);
+
+        res.status(201).json({message: 'User registration successful', user: insertNewUserQuery.rows[0]})
+    } catch(err){
+        console.error(err);
+        res.status(500).json({error: 'User registration failed. Please try again later.'})
+    }
+});
 // User login functionality
 
 module.exports = router;
