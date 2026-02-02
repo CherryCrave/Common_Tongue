@@ -31,5 +31,21 @@ router.post('/register', async (req, res) => {
     }
 });
 // User login functionality
+router.post('/login', async (req, res) => {
+    try{
+        const {email, password} = req.body;
+
+        // Does the user exist?
+        const existingUserQuery = await pool.query(
+            'SELECT * FROM users WHERE email = $1', [email]
+        )
+        if(existingUserQuery.rows.length === 0){
+            return res.status(400).json({error: 'This user does not exist. Please register an account to use this login.'})
+        }
+    } catch(err){
+        console.error(err);
+        res.status(500).json({error: 'User login has failed. Please try again later.'})
+    }
+});
 
 module.exports = router;
