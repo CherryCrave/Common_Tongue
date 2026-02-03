@@ -42,6 +42,15 @@ router.post('/login', async (req, res) => {
         if(existingUserQuery.rows.length === 0){
             return res.status(400).json({error: 'This user does not exist. Please register an account to use this login.'})
         }
+
+        // Comparison of the inputted password with what's currently stored.
+        const passwordValidation = await bcrypt.compare(password, existingUserQuery.rows[0].hashed_password);
+        if(!passwordValidation){
+            return res.status(401).json({error: 'There is an invalid email or password'});
+        }
+
+        // I need to add JsonWebToken functionality.
+        
     } catch(err){
         console.error(err);
         res.status(500).json({error: 'User login has failed. Please try again later.'})
