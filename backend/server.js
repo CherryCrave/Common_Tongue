@@ -4,6 +4,7 @@ require('dotenv').config();
 
 // Import routes from routes folder, used for organising
 const userRoutes = require('./routes/users');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +19,9 @@ app.get('/api/health', (req, res) => {
 
 // Use routes from the routes folder
 app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
+
+
 
 // Starts the local server
 app.listen(PORT, () => {
