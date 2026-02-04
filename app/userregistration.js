@@ -31,4 +31,13 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 65,
     },
+    formContainer: {
+    },
+    input: {
+    },
+    registerButton: {
+    },
+    registerButtonTest:{
+
+    },
 });
