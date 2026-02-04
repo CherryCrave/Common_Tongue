@@ -13,6 +13,18 @@ export default function UserRegistration(){
     return(
         <View style={styles.container}>
             <Text style={styles.title}>User Registration</Text>
+            <View style={styles.formContainer}>
+                <TextInput style = {styles.input}
+                    placeholder="Enter your email address..."
+                    placeholderTextColor="#FF9494"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    capitalize="none"
+                />
+
+            </View>
         </View>
     );
 }
@@ -34,6 +46,17 @@ const styles = StyleSheet.create({
     formContainer: {
     },
     input: {
+        width: '100%',
+        borderWidth: 2,
+        borderColor: '#FF9494',
+        borderRadius: 8,
+        padding: 10,
+        marginVertical: 10,
+        fontSize: 18,
+        backgroundColor: '#FFF',
+        color: '#FF9494',
+        fontFamily: 'Arial',
+        //fontWeight: 'bold',
     },
     registerButton: {
     },
