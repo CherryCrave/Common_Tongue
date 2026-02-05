@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, TextInput, Pressable, Alert } from 'react-native';
-import {useState } from 'react';
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function UserRegistration(){
     const router = useRouter();
@@ -38,6 +38,14 @@ export default function UserRegistration(){
                 placeholderTextColor="#FF9494"
                 value={password}
                 onChangeText={setPassword}
+                secureTextEntry={true}
+                />
+
+                <TextInput style={styles.input}
+                placeholder="Confirm your password..."
+                placeholderTextColor="#FF9494"
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
                 secureTextEntry={true}
                 />
             </View>
