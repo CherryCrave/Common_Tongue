@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function UserRegistration(){
     const router = useRouter();
@@ -48,6 +48,14 @@ export default function UserRegistration(){
                 onChangeText={setConfirmPassword}
                 secureTextEntry={true}
                 />
+
+                <Pressable style={styles.registerButton}
+                onPress={() => Alert.alert('TestingButton', 'Button successfully tested.')}
+                disabled={isLoading}>
+                    <Text style={styles.registerButtonText}>
+                        {isLoading ? 'Registering...' : 'Register'}
+                    </Text>
+                </Pressable>
             </View>
         </View>
     );
@@ -85,8 +93,18 @@ const styles = StyleSheet.create({
         //fontWeight: 'bold',
     },
     registerButton: {
+        width: '100%',
+        backgroundColor: '#FF9494',
+        padding: 15,
+        borderRadius: 30,
+        marginTop: 30,
+        alignItems: 'center',
     },
-    registerButtonTest:{
 
+    registerButtonText:{
+        color: '#FFF' ,
+        fontSize: 20,
+        fontWeight: 'bold',
+        fontFamily: 'Arial',
     },
 });
