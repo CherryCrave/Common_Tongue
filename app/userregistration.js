@@ -24,6 +24,22 @@ export default function UserRegistration(){
                     capitalize="none"
                 />
 
+                <TextInput style={styles.input}
+                placeholder="Choose a username..."
+                placeholderTextColor="#FF9494"
+                value={username}
+                onChangeText={setUsername}
+                autoCapitalize="none"
+                capitalize="none"
+                />
+
+                <TextInput style={styles.input}
+                placeholder="Create a password..."
+                placeholderTextColor="#FF9494"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={true}
+                />
             </View>
         </View>
     );
@@ -44,6 +60,8 @@ const styles = StyleSheet.create({
         top: 65,
     },
     formContainer: {
+        width: '85%',
+        alignItems: 'center',
     },
     input: {
         width: '100%',
