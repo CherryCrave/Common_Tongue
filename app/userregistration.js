@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function UserRegistration(){
     const router = useRouter();
@@ -10,6 +10,35 @@ export default function UserRegistration(){
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
+    const registrationHandler = async () => {
+        if(!email || !username || !password || !confirmPassword){
+            Alert.alert('Error', 'Please fill in all fields to register an account with us.');
+            return;
+        }
+        setIsLoading(true); // Boolean for the button being unpressable and showing loading to user.
+
+        try{
+            const response = await fetch('http://localhost:3000/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({email, username, password}),
+            })
+            const data = await response.json(); // awaiting fetch response including the json depiction of the necessary data for registration.
+
+            if(response.ok){
+                Alert.alert('Success', 'Account registration is successful. Now you can login.');
+                router.push('/userlogin'); // Navigates to login page if successful.
+            } else {
+                Alert.alert('Error', data.error || 'Registration failed. Please try again.');
+            }
+        } catch (error) {
+            Alert.alert('Error', 'An error occurred. Please try registration again.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
     return(
         <View style={styles.container}>
             <Text style={styles.title}>User Registration</Text>
@@ -50,7 +79,7 @@ export default function UserRegistration(){
                 />
 
                 <Pressable style={styles.registerButton}
-                onPress={() => Alert.alert('TestingButton', 'Button successfully tested.')}
+                onPress={registrationHandler}
                 disabled={isLoading}>
                     <Text style={styles.registerButtonText}>
                         {isLoading ? 'Registering...' : 'Register'}
