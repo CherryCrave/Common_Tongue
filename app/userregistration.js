@@ -15,10 +15,14 @@ export default function UserRegistration(){
             Alert.alert('Error', 'Please fill in all fields to register an account with us.');
             return;
         }
+        if(password !== confirmPassword){
+            Alert.alert('Error', 'The passwords you have entered do not match. Please ensure that your confirm password matches with the one you have created.');
+            return;
+        }
         setIsLoading(true); // Boolean for the button being unpressable and showing loading to user.
 
         try{
-            const response = await fetch('http://localhost:3000/api/auth/register', {
+            const response = await fetch('http://10.5.3.252:3000/api/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
