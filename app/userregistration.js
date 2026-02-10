@@ -32,6 +32,11 @@ export default function UserRegistration(){
             const data = await response.json(); // awaiting fetch response including the json depiction of the necessary data for registration.
 
             if(response.ok){
+                // storing jwt, id and username in device storage so that when they re-open the app they are automatically logged in.
+                await AsyncStorage.setItem('userToken', data.token);
+                await AsyncStorage.setItem('userId', data.user.id.toString()); // toString() because it's a UUID format and not Serial
+                await AsyncStorage.setItem('username', data.user.username);
+
                 Alert.alert('Success', 'Account registration is successful. Now you can login.');
                 router.push('/userlogin'); // Navigates to login page if successful.
             } else {
