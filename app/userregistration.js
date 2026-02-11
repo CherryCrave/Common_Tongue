@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Alert, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
@@ -22,7 +23,7 @@ export default function UserRegistration(){
         setIsLoading(true); // Boolean for the button being unpressable and showing loading to user.
 
         try{
-            const response = await fetch('http://10.5.3.252:3000/api/auth/register', {
+            const response = await fetch('http://10.2.15.149:3000/api/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
