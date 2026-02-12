@@ -37,6 +37,7 @@ export default function UserRegistration(){
                 await AsyncStorage.setItem('userToken', data.token);
                 await AsyncStorage.setItem('userId', data.user.id.toString()); // toString() because it's a UUID format and not Serial
                 await AsyncStorage.setItem('username', data.user.username);
+                await AsyncStorage.setItem('email', data.user.email);
 
                 Alert.alert('Success', 'Account registration is successful. Now you can login.');
                 router.push('/userlogin'); // Navigates to login page if successful.

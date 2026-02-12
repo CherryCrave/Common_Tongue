@@ -32,6 +32,7 @@ export default function UserLogin(){
                 await AsyncStorage.setItem('userToken', data.token);
                 await AsyncStorage.setItem('userId', data.user.id.toString());
                 await AsyncStorage.setItem('username', data.user.username);
+                await AsyncStorage.setItem('email', data.user.email);
 
                 Alert.alert('Success', `Login successful. Welcome ${data.user.username}!`);
                 router.push('/(tabs)'); // Navigation to tab screen if login is sucessful.

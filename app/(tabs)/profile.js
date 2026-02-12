@@ -8,6 +8,7 @@ export default function ProfileScreen() {
 
   const router = useRouter();
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [userId, setUserId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -15,9 +16,11 @@ export default function ProfileScreen() {
     const loadTheUserData = async() => {
       try{
         const storedUsername = await AsyncStorage.getItem('username');
+        const storedEmail = await AsyncStorage.getItem('email');
         const storedUserId = await AsyncStorage.getItem('userId'); // Kept for backend, not for display purposes
 
-        setUsername(storedUsername || 'User username');
+        setUsername(storedUsername || 'User username (PLACEHOLDER)');
+        setEmail(storedEmail || 'User email (PLACEHOLDER)');
         setUserId(storedUserId || '');
 
         setIsLoading(false);
@@ -65,6 +68,10 @@ export default function ProfileScreen() {
             <View style = {styles.informationBox}>
               <Text style = {styles.label}>Username:</Text>
               <Text style={styles.value}>{username}</Text>
+            </View>
+            <View style = {styles.informationBox}>
+              <Text style = {styles.label}>Email Address:</Text>
+              <Text style={styles.value}>{email}</Text>
             </View>
           </View>
         )}
