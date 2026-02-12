@@ -3,8 +3,8 @@ const cors = require('cors');
 require('dotenv').config();
 
 // Import routes from routes folder, used for organising
-const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
+const lessonRoutes = require('./routes/lessonFeedback');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,8 +18,8 @@ app.get('/api/health', (req, res) => {
 });
 
 // Use routes from the routes folder
-app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/lessonFeedback', lessonRoutes);
 
 
 
