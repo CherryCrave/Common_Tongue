@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link, useRouter } from "expo-router";
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
