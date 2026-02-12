@@ -5,7 +5,7 @@ export default function ResourceLibraryScreen() {
   return (
     <SafeAreaView style={styles.container}>
         <Text style={styles.title}>Resource Library</Text>
-        <Text style={styles.subtitle}>Access resources related to government-sponsored EFL programs.</Text>
+        <Text style={styles.subtitle}>Library of government sponsored EFL programs.</Text>
       </SafeAreaView>
   );
 }
