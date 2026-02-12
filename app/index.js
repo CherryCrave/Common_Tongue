@@ -1,14 +1,45 @@
-import { Link } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { Link, useRouter } from "expo-router";
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
+  const router = useRouter();
+  const [loginCheck, setLoginCheck] = useState(true); // Checking if AsyncStorage is working
+
+  useEffect(() => {
+    const checkAuthUserToken = async () => {
+      try {
+        const token = await AsyncStorage.getItem('userToken'); // Can we get the userToken forom AsyncStorage
+
+        if (token){
+          router.replace('/(tabs)'); // If token exists
+        } else {
+          setLoginCheck(false); // If no token
+        }
+      } catch (error) {
+        setLoginCheck(false) // If there's an error with the library
+      }
+    };
+
+  checkAuthUserToken();
+  }, []);
+
   return (
     <View style={styles.container}>
-        <Text style={styles.welcomeText}>Welcome to Common Tongue.</Text>
-        <Link href="/userhub" style={styles.directToAccHub}>
+      {loginCheck ? (
+        <>
+          <ActivityIndicator size = "large" color="#FF9494"/>
+          <Text style = {styles.loadingText}>Loading profile...</Text>
+        </>
+      ) : (
+        <>
+          <Text style={styles.welcomeText}>Welcome to Common Tongue.</Text>
+          <Link href="/userhub" style={styles.directToAccHub}>
           <Text style={styles.directToAccHub}>Account Hub</Text>
-        </Link>
-      </View>
+          </Link>
+        </>
+      )}
+    </View>
   );
 }
 
@@ -33,5 +64,12 @@ const styles =  StyleSheet.create({
     padding: 10,
     position: 'absolute',
     bottom: 105
-  }
+  },
+
+  loadingText: {
+    color: '#FF9494',
+    fontSize: 16,
+    fontFamily: 'Arial',
+    marginTop: 10,
+  },
 });
