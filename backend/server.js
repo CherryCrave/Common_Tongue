@@ -4,7 +4,7 @@ require('dotenv').config();
 
 // Import routes from routes folder, used for organising
 const authRoutes = require('./routes/auth');
-const lessonRoutes = require('./routes/lessonFeedback');
+const lessonFeedbackRoutes = require('./routes/lessonFeedback');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,7 +19,7 @@ app.get('/api/health', (req, res) => {
 
 // Use routes from the routes folder
 app.use('/api/auth', authRoutes);
-app.use('/api/lessonFeedback', lessonRoutes);
+app.use('/api/lessonFeedback', lessonFeedbackRoutes);
 
 
 
