@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
     try{
         const {lessonPlan} = req.body; // Takes lessonplan from request body
 
-        if (!lessonPlan || lessonPlan.trim() === 0) { // Checking text input
+        if (!lessonPlan || lessonPlan.trim().length === 0) { // Checking text input
             return res.status(400).json({
                 error: 'You must input lesson plan text'
             });
