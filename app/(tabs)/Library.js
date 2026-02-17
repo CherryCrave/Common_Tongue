@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from 'react-native';
+import { Linking, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const TEACHING_PROGRAMS=[
@@ -75,11 +75,22 @@ const TEACHING_PROGRAMS=[
 ];
 
 export default function ResourceLibraryScreen() {
+
+  const openWebsite = (url) => {
+    Linking.openURL(url).catch(err => 
+      console.error('Failed to open URL:', err)
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-        <Text style={styles.title}>Resource Library</Text>
-        <Text style={styles.subtitle}>Library of government sponsored EFL programs.</Text>
-      </SafeAreaView>
+      <ScrollView style = {styles.scrollView} contentContainerStyle={styles.scrollContent}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Resource Library</Text>
+          <Text style={styles.subtitle}>Library of government sponsored EFL programs.</Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -101,5 +112,16 @@ const styles = StyleSheet.create({
     color: '#FF9494',
     fontSize: 16,
     fontFamily: 'Arial',
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  ScrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    padding: 20,
+    paddingBottom: 40,
   },
 });
