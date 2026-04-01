@@ -1,4 +1,4 @@
-import { Linking, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const TEACHING_PROGRAMS=[
@@ -76,10 +76,18 @@ const TEACHING_PROGRAMS=[
 
 export default function ResourceLibraryScreen() {
 
-  const openWebsite = (url) => {
-    Linking.openURL(url).catch(err => 
-      console.error('Failed to open URL:', err)
-    );
+  const openWebsite = async (url) => {
+    try {
+      const supported = await Linking.canOpenURL(url);
+      if (!supported) {
+        Alert.alert('Cannot open link', 'Your device cannot open this URL.');
+        return;
+      }
+      await Linking.openURL(url);
+    } catch (err) {
+      console.error('Failed to open URL:', err);
+      Alert.alert('Error', 'Failed to open the website. Please try again.');
+    }
   };
 
   return (
@@ -89,6 +97,50 @@ export default function ResourceLibraryScreen() {
           <Text style={styles.title}>Resource Library</Text>
           <Text style={styles.subtitle}>Library of government sponsored EFL programs.</Text>
         </View>
+
+        {TEACHING_PROGRAMS.map((program) => (
+          <View key={program.id} style={styles.card}>
+            <View style={styles.cardHeader}>
+              <Text style={styles.cardTitle}>{program.name}</Text>
+              <Text style={styles.cardSubtitle}>{program.country}</Text>
+            </View>
+
+            <View style={styles.cardBody}>
+              <Text style={styles.fullName}>{program.fullName}</Text>
+              <Text style={styles.description}>{program.description}</Text>
+
+              <View style={styles.section}>
+                <Text style={styles.sectionTitle}>Requirements</Text>
+                {program.requirements.map((item, index) => (
+                  <Text key={`${program.id}-req-${index}`} style={styles.listItem}>
+                    • {item}
+                  </Text>
+                ))}
+              </View>
+
+              <View style={styles.section}>
+                <Text style={styles.sectionTitle}>Benefits</Text>
+                {program.benefits.map((item, index) => (
+                  <Text key={`${program.id}-ben-${index}`} style={styles.listItem}>
+                    • {item}
+                  </Text>
+                ))}
+              </View>
+
+              <View style={styles.section}>
+                <Text style={styles.sectionTitle}>Application period</Text>
+                <Text style={styles.infoText}>{program.applicationPeriod}</Text>
+              </View>
+
+              <TouchableOpacity
+                style={styles.websiteButton}
+                onPress={() => openWebsite(program.website)}
+              >
+                <Text style={styles.websiteButtonText}>Official website</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
@@ -98,30 +150,105 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFF5E4',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    padding: 20,
+    paddingBottom: 40,
+  },
+  header: {
     alignItems: 'center',
-    justifyContent: 'center',
+    marginBottom: 20,
   },
   title: {
     color: '#FF9494',
     fontSize: 28,
     fontWeight: 'bold',
     fontFamily: 'Arial',
-    marginBottom: 10,
+    marginBottom: 5,
   },
   subtitle: {
     color: '#FF9494',
     fontSize: 16,
     fontFamily: 'Arial',
+    textAlign: 'center',
   },
-  header: {
-    alignItems: 'center',
+
+  card: {
+    backgroundColor: '#FFFFFF',
+    borderColor: '#FFB4B4',
+    borderWidth: 2,
+    borderRadius: 12,
     marginBottom: 20,
+    overflow: 'hidden',
   },
-  ScrollView: {
-    flex: 1,
+  cardHeader: {
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    backgroundColor: '#FFF5E4',
+    borderBottomColor: '#FFB4B4',
+    borderBottomWidth: 2,
   },
-  scrollContent: {
-    padding: 20,
-    paddingBottom: 40,
+  cardTitle: {
+    color: '#FF9494',
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontFamily: 'Arial',
+  },
+  cardSubtitle: {
+    color: '#FF9494',
+    fontSize: 14,
+    fontFamily: 'Arial',
+    marginTop: 2,
+  },
+  cardBody: {
+    padding: 16,
+  },
+  fullName: {
+    color: '#333',
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  description: {
+    color: '#333',
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 14,
+  },
+  section: {
+    marginBottom: 14,
+  },
+  sectionTitle: {
+    color: '#FF9494',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  listItem: {
+    color: '#333',
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 4,
+  },
+  infoText: {
+    color: '#333',
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  websiteButton: {
+    backgroundColor: '#FF9494',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  websiteButtonText: {
+    color: '#FFF5E4',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
